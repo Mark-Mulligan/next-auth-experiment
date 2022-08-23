@@ -14,7 +14,9 @@ const Home: NextPage = () => {
       </Head>
 
       <div className={styles.container}>
-        <Button onClick={() => signIn()}>Sign In</Button>
+        <Button variant="contained" onClick={() => signIn()}>
+          Sign In
+        </Button>
       </div>
     </div>
   );
