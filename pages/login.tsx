@@ -7,15 +7,11 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
 const Home: NextPage = () => {
-  const router = useRouter();
   const session = useSession();
+  const router = useRouter();
 
-  if (!router) {
-    return null;
-  }
-
-  if (!session) {
-    router.push("/login");
+  if (session) {
+    router.push("/");
   }
 
   return (
@@ -27,8 +23,8 @@ const Home: NextPage = () => {
       </Head>
 
       <div className={styles.container}>
-        <Button variant="contained" onClick={() => console.log("get students")}>
-          getStudents
+        <Button variant="contained" onClick={() => signIn()}>
+          Sign In
         </Button>
       </div>
     </div>
