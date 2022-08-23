@@ -10,6 +10,8 @@ const Home: NextPage = () => {
   const router = useRouter();
   const session = useSession();
 
+  console.log('session', session)
+
   if (!router) {
     return null;
   }
@@ -28,7 +30,7 @@ const Home: NextPage = () => {
 
       <div className={styles.container}>
         <Button variant="contained" onClick={() => console.log("get students")}>
-          getStudents
+          Get Students
         </Button>
       </div>
     </div>

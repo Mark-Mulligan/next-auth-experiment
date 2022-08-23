@@ -10,7 +10,11 @@ const Home: NextPage = () => {
   const session = useSession();
   const router = useRouter();
 
-  if (session) {
+  if (!router) {
+    return null;
+  }
+
+  if (session && router) {
     router.push("/");
   }
 
