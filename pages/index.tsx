@@ -34,6 +34,9 @@ const Home: NextPage = () => {
         <Button variant="contained" onClick={() => handleGetStudents()}>
           Get Students
         </Button>
+        <Button variant="outlined" onClick={() => signOut()}>
+          Sign Out
+        </Button>
       </div>
     </div>
   );
