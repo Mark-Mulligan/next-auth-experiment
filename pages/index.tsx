@@ -1,22 +1,37 @@
+// React
+import { useEffect, useState } from 'react';
+
+// Next
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import styles from '../styles/Home.module.css';
-import Button from '@mui/material/Button';
-import axios from 'axios';
+import { useRouter } from 'next/router';
 import { signIn, signOut } from 'next-auth/react';
 import { useSession } from 'next-auth/react';
 
-const Home: NextPage = () => {
-  const { status } = useSession({ required: true });
+// Libraries
+import axios from 'axios';
 
-  const handleGetStudents = async () => {
-    try {
-      const { data } = await axios.get('/api/students');
-      console.log(data);
-    } catch (err) {
-      console.log(err);
+// MUI
+import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+
+// Styles
+import styles from '../styles/Home.module.css';
+
+const Home: NextPage = () => {
+  const { status } = useSession();
+  const router = useRouter();
+
+  const [isRedirecting, setIsRedirecting] = useState(false);
+
+  useEffect(() => {
+    if (status === 'authenticated' && router && !isRedirecting) {
+      setIsRedirecting(true);
+      router.push('/dashboard');
     }
-  };
+  }, [status, router, isRedirecting]);
 
   if (status === 'loading') {
     return <div>Loading</div>;
@@ -31,12 +46,15 @@ const Home: NextPage = () => {
       </Head>
 
       <div className={styles.container}>
-        <Button variant="contained" onClick={() => handleGetStudents()}>
-          Get Students
-        </Button>
-        <Button variant="outlined" onClick={() => signOut()}>
-          Sign Out
-        </Button>
+        <Container sx={{ textAlign: 'center' }}>
+          <Card sx={{ maxWidth: 300, margin: 'auto' }}>
+            <CardContent>
+              <Button variant="outlined" onClick={() => signIn()}>
+                Sign In
+              </Button>
+            </CardContent>
+          </Card>
+        </Container>
       </div>
     </div>
   );
